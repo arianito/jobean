@@ -1,0 +1,56 @@
+{
+	"name": "jobean",
+	"version": "1.0.0",
+	"description": "redux bean container.",
+	"main": "src/index.js",
+	"types": "src/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"ship": "npm run build && npm publish",
+		"test": "jest --watch",
+		"test:once": "jest"
+	},
+	"homepage": "https://github.com/xeuus/jobean",
+	"author": "Aryan Alikhani",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/xeuus/jobean.git"
+	},
+	"bugs": {
+		"url": "https://github.com/xeuus/jobean/issues"
+	},
+	"devDependencies": {
+		"@types/enzyme": "^3.1.18",
+		"@types/jest": "^23.3.14",
+		"@types/lodash": "^4.14.123",
+		"@types/node": "^11.11.3",
+		"@types/react": "^16.8.8",
+		"@types/react-dom": "^16.8.4",
+		"@types/react-redux": "^7.0.5",
+		"@types/react-router": "^4.4.5",
+		"@types/redux": "^3.6.0",
+		"@types/redux-saga": "^0.10.5",
+		"@types/webpack-env": "^1.13.9",
+		"enzyme": "^3.8.0",
+		"enzyme-adapter-react-16": "^1.9.1",
+		"enzyme-to-json": "^3.3.5",
+		"jest": "^24.1.0",
+		"redux-saga-test": "^1.0.1",
+		"ts-jest": "^23.10.5",
+		"tsconfig-paths-jest": "0.0.1",
+		"typescript": "^3.4.5"
+	},
+	"dependencies": {
+		"connected-react-router": "^6.3.2",
+		"history": "^4.9.0",
+		"js-cookie": "^2.2.0",
+		"lodash": "^4.17.11",
+		"react": "^16.8.4",
+		"react-dom": "^16.8.6",
+		"react-redux": "^6.0.1",
+		"react-router": "^4.3.1",
+		"redux": "^4.0.1",
+		"redux-saga": "^1.0.2"
+	}
+}

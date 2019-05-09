@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "outDir": ".",
+        "target": "es5",
+        "module": "commonjs",
+		"strict": false,
+		"esModuleInterop": true,
+		"declaration": true,
+		"noImplicitAny": false,
+		"downlevelIteration": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"jsx": "react",
+        "lib": [
+            "dom",
+            "es2015",
+            "es2016.array.include",
+            "es6"
+        ],
+		"baseUrl": ".",
+		"paths": {}
+	},
+	"include": [
+		"./**/*"
+	],
+    "exclude": [
+		"./**/*.js",
+		"./**/*.d.ts",
+		"test.config.ts",
+        "__tests__/",
+        "node_modules/"
+    ]
+}

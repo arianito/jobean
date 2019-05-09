@@ -1,0 +1,121 @@
+const statusCodes = {};
+
+statusCodes[202] = "Accepted";
+statusCodes[502] = "Bad Gateway";
+statusCodes[400] = "Bad Request";
+statusCodes[409] = "Conflict";
+statusCodes[100] = "Continue";
+statusCodes[201] = "Created";
+statusCodes[417] = "Expectation Failed";
+statusCodes[424] = "Failed Dependency";
+statusCodes[403] = "Forbidden";
+statusCodes[504] = "Gateway Timeout";
+statusCodes[410] = "Gone";
+statusCodes[505] = "HTTP Version Not Supported";
+statusCodes[418] = "I'm a teapot";
+statusCodes[419] = "Insufficient Space effect Resource";
+statusCodes[507] = "Insufficient Storage";
+statusCodes[500] = "Server Error";
+statusCodes[411] = "Length Required";
+statusCodes[423] = "Locked";
+statusCodes[420] = "Act Failure";
+statusCodes[405] = "Act Not Allowed";
+statusCodes[301] = "Moved Permanently";
+statusCodes[302] = "Moved Temporarily";
+statusCodes[207] = "Multi-OperationState";
+statusCodes[300] = "Multiple Choices";
+statusCodes[511] = "Network Authentication Required";
+statusCodes[204] = "No Content";
+statusCodes[203] = "Non Authoritative Information";
+statusCodes[406] = "Not Acceptable";
+statusCodes[404] = "Not Found";
+statusCodes[501] = "Not Implemented";
+statusCodes[304] = "Not Modified";
+statusCodes[200] = "OK";
+statusCodes[206] = "Partial Content";
+statusCodes[402] = "Payment Required";
+statusCodes[308] = "Permanent Redirect";
+statusCodes[412] = "Precondition Failed";
+statusCodes[428] = "Precondition Required";
+statusCodes[102] = "Processing";
+statusCodes[407] = "Proxy Authentication Required";
+statusCodes[431] = "Request Header Fields Too Large";
+statusCodes[408] = "Request Timeout";
+statusCodes[413] = "Request Entity Too Large";
+statusCodes[414] = "Request-URI Too Long";
+statusCodes[416] = "Requested ArrayRange Not Satisfiable";
+statusCodes[205] = "Reset Content";
+statusCodes[303] = "See Other";
+statusCodes[503] = "Service Unavailable";
+statusCodes[101] = "Switching Protocols";
+statusCodes[307] = "Temporary Redirect";
+statusCodes[429] = "Too Many Requests";
+statusCodes[401] = "Unauthorized";
+statusCodes[422] = "Unprocessable Entity";
+statusCodes[415] = "Unsupported Media Type";
+statusCodes[305] = "Use Proxy";
+
+
+export class NetworkCodes {
+
+	static ACCEPTED = 202;
+	static BAD_GATEWAY = 502;
+	static BAD_REQUEST = 400;
+	static CONFLICT = 409;
+	static CONTINUE = 100;
+	static CREATED = 201;
+	static EXPECTATION_FAILED = 417;
+	static FAILED_DEPENDENCY = 424;
+	static FORBIDDEN = 403;
+	static GATEWAY_TIMEOUT = 504;
+	static GONE = 410;
+	static HTTP_VERSION_NOT_SUPPORTED = 505;
+	static IM_A_TEAPOT = 418;
+	static INSUFFICIENT_SPACE_ON_RESOURCE = 419;
+	static INSUFFICIENT_STORAGE = 507;
+	static INTERNAL_SERVER_ERROR = 500;
+	static LENGTH_REQUIRED = 411;
+	static LOCKED = 423;
+	static METHOD_FAILURE = 420;
+	static METHOD_NOT_ALLOWED = 405;
+	static MOVED_PERMANENTLY = 301;
+	static MOVED_TEMPORARILY = 302;
+	static MULTI_STATUS = 207;
+	static MULTIPLE_CHOICES = 300;
+	static NETWORK_AUTHENTICATION_REQUIRED = 511;
+	static NO_CONTENT = 204;
+	static NON_AUTHORITATIVE_INFORMATION = 203;
+	static NOT_ACCEPTABLE = 406;
+	static NOT_FOUND = 404;
+	static NOT_IMPLEMENTED = 501;
+	static NOT_MODIFIED = 304;
+	static OK = 200;
+	static PARTIAL_CONTENT = 206;
+	static PAYMENT_REQUIRED = 402;
+	static PERMANENT_REDIRECT = 308;
+	static PRECONDITION_FAILED = 412;
+	static PRECONDITION_REQUIRED = 428;
+	static PROCESSING = 102;
+	static PROXY_AUTHENTICATION_REQUIRED = 407;
+	static REQUEST_HEADER_FIELDS_TOO_LARGE = 431;
+	static REQUEST_TIMEOUT = 408;
+	static REQUEST_TOO_LONG = 413;
+	static REQUEST_URI_TOO_LONG = 414;
+	static REQUESTED_RANGE_NOT_SATISFIABLE = 416;
+	static RESET_CONTENT = 205;
+	static SEE_OTHER = 303;
+	static SERVICE_UNAVAILABLE = 503;
+	static SWITCHING_PROTOCOLS = 101;
+	static TEMPORARY_REDIRECT = 307;
+	static TOO_MANY_REQUESTS = 429;
+	static UNAUTHORIZED = 401;
+	static UNPROCESSABLE_ENTITY = 422;
+	static UNSUPPORTED_MEDIA_TYPE = 415;
+	static USE_PROXY = 305;
+
+
+	static getStatus(statusCode: number) {
+		return statusCodes[statusCode];
+	}
+
+}
