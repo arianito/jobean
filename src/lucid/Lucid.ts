@@ -10,7 +10,7 @@ export type LucidConfig = {
 	method: HttpMethod
 	responseType: ResponseType
 	withCredentials: boolean
-	log: boolean
+	logger: (...messages: any) => any
 }
 
 
@@ -23,28 +23,23 @@ export class Lucid {
 	private static mockedRoutes: { [key: string]: Array<MockedHttpRoute<any>> } = {};
 	private static mockedMiddleware: { [key: string]: MockedMiddleware } = {};
 
-	public static logger: (...messages: any) => any = null;
 
 	public static defaultConfiguration: LucidConfig = {
 		baseHref: '',
 		timeout: 1000,
-		log: false,
+		logger: null,
 		method: HttpMethod.post,
 		responseType: ResponseType.json,
 		withCredentials: false,
 	};
 
-	static config = (driver: HttpDriver, options?: LucidConfig) => {
+	static config = (driver: HttpDriver, options?: Partial<LucidConfig>) => {
 		Lucid.driver = driver;
 		if (options)
 			Lucid.defaultConfiguration = {
 				...Lucid.defaultConfiguration,
 				...options,
 			}
-	};
-
-	static setLogger = (logger: (...messages: any) => any) => {
-		Lucid.logger = logger;
 	};
 
 	static addRequestMiddleware = (middleWare: RequestMiddleware) => {
@@ -123,9 +118,7 @@ export class Lucid {
 			request.url = path;
 			request.method = method;
 
-			if (Lucid.defaultConfiguration.log && Lucid.logger) {
-				Lucid.logger('request', request);
-			}
+			Lucid.defaultConfiguration.logger && Lucid.defaultConfiguration.logger('request', request);
 
 			const routes = Object.keys(Lucid.mockedRoutes).reduce((acc, value) => {
 				return [
@@ -192,18 +185,14 @@ export class Lucid {
 
 							await cache(request, responseHelper);
 
-							if (Lucid.defaultConfiguration.log && Lucid.logger) {
-								Lucid.logger('response', output);
-							}
+							Lucid.defaultConfiguration.logger && Lucid.defaultConfiguration.logger('response', output);
 
 							if (output.headers['content-type'] && output.headers['content-type'].includes('application/json')) {
 								try {
 									output.payload = JSON.parse(output.payload);
 								} catch (e) {
 
-									if (Lucid.defaultConfiguration.log && Lucid.logger) {
-										Lucid.logger('error', output);
-									}
+									Lucid.defaultConfiguration.logger && Lucid.defaultConfiguration.logger('error', output);
 
 									delete output.payload;
 								}
@@ -215,9 +204,7 @@ export class Lucid {
 							}
 
 						} catch (e) {
-							if (Lucid.defaultConfiguration.log && Lucid.logger) {
-								Lucid.logger('error', '500 internal server error');
-							}
+							Lucid.defaultConfiguration.logger && Lucid.defaultConfiguration.logger('error', '500 internal server error');
 							throw <HttpResponse>{
 								status: NetworkCodes.INTERNAL_SERVER_ERROR,
 								statusText: NetworkCodes.getStatus(NetworkCodes.INTERNAL_SERVER_ERROR),
@@ -231,9 +218,7 @@ export class Lucid {
 				}
 			}
 			if (methodNotFound) {
-				if (Lucid.defaultConfiguration.log && Lucid.logger) {
-					Lucid.logger('error', '405 method not allowed');
-				}
+				Lucid.defaultConfiguration.logger && Lucid.defaultConfiguration.logger('error', '405 method not allowed');
 				throw <HttpResponse>{
 					status: NetworkCodes.METHOD_NOT_ALLOWED,
 					statusText: NetworkCodes.getStatus(NetworkCodes.METHOD_NOT_ALLOWED),
@@ -241,17 +226,13 @@ export class Lucid {
 			}
 
 			if (fallback) {
-				if (Lucid.defaultConfiguration.log && Lucid.logger) {
-					Lucid.logger('fallback', oldPath);
-				}
+				Lucid.defaultConfiguration.logger && Lucid.defaultConfiguration.logger('fallback', oldPath);
 				request.url = oldPath;
 				request.method = oldMethod;
 				return fallback(request);
 			}
 
-			if (Lucid.defaultConfiguration.log && Lucid.logger) {
-				Lucid.logger('error','404 not found');
-			}
+			Lucid.defaultConfiguration.logger && Lucid.defaultConfiguration.logger('error', '404 not found');
 			throw <HttpResponse>{
 				status: NetworkCodes.NOT_FOUND,
 				statusText: NetworkCodes.getStatus(NetworkCodes.NOT_FOUND),
