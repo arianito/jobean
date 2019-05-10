@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": ".",
+        "outDir": "dist/",
         "target": "es5",
         "module": "commonjs",
 		"strict": false,
@@ -21,13 +21,14 @@
 		"paths": {}
 	},
 	"include": [
-		"./**/*"
+		"src/**/*"
 	],
     "exclude": [
-		"./**/*.js",
-		"./**/*.d.ts",
+		"**/*.js",
+		"**/*.d.ts",
 		"test.config.ts",
-        "__tests__/",
+		"src/__tests__/",
+        "dist/",
         "node_modules/"
     ]
 }
