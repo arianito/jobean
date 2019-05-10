@@ -9,15 +9,20 @@ import {BeanFactory} from "./BeanFactory";
 import {memoryRouteMiddleware} from "./memoryRouteMiddleware";
 import {actMiddleware} from "./actMiddleware";
 import {filterObjectByKeys, Base64} from "../helpers";
-
+import merge from 'lodash/merge'
 
 export const globalState = () => JSON.parse(Base64.decode(global['BEAN']));
 export const globalStateAvailable = typeof global !== 'undefined' && global['BEAN'];
 
 
+function do_merge(roles) {
+	return merge(...roles)
+}
+
+
 function readState(key) {
 	try {
-		return JSON.parse(Base64.decode(localStorage.getItem(key))) || {}
+		return JSON.parse(Base64.decode(localStorage.getItem(key)))
 	} catch (e) {
 		return {}
 	}
@@ -76,7 +81,7 @@ export const configureStore = (props: ConfigureStorePayload): BeanConfig => {
 
 
 	let store = null;
-	const state = {...initialState, ...savedState, ...ssrState};
+	const state = do_merge([initialState, savedState, ssrState]);
 	const operationMiddleware = actMiddleware(props.baseHref, sagaMiddleware, props.beans.filter(a => a.acts.some(a => !!a.automatic)));
 	const memoryRouterMiddleware = props.useMemory ? [memoryRouteMiddleware()] : [];
 	const middleware = applyMiddleware(...collectedMiddleware, sagaMiddleware, operationMiddleware, ...memoryRouterMiddleware);
@@ -91,14 +96,15 @@ export const configureStore = (props: ConfigureStorePayload): BeanConfig => {
 	if (typeof window !== 'undefined') {
 		window.addEventListener('beforeunload', () => {
 			const currentState = store.getState();
-			saveState(key, Object.keys(currentState).reduce((output, key) => {
+			const mustSave = Object.keys(currentState).reduce((output, key) => {
 				const model = currentState[key];
 				const found = props.beans && props.beans.find(a => a.id == key);
 				if (found && found.saved) {
 					return {...output, [key]: (found.dispose && found.dispose(model)) || model};
 				}
 				return output;
-			}, {}));
+			}, {});
+			saveState(key, mustSave);
 		});
 	}
 	sagaMiddleware.run(rootSagas);

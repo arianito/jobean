@@ -37,9 +37,13 @@ export function prepareBeans(beans: Array<Bean>) {
 					yield* wrapSagas(payload, act.body)
 				}))
 			})
+		}else {
+			bean.acts = [];
 		}
 		if (bean.sagas) {
 			bean.sagas.map(b => collectedSagas.push(b))
+		}else {
+			bean.sagas = [];
 		}
 	});
 

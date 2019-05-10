@@ -15,6 +15,7 @@ import {ClientProvider} from "./ClientProvider";
 export type ProviderProps = {
 	id: string
 	rtl?: boolean
+	useSync?: boolean
 	useSSR?: boolean
 	useMemory?: boolean
 	app: React.ReactNode
