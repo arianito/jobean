@@ -49,6 +49,8 @@ export class ClientProvider extends React.Component<ClientProviderProps, ClientP
 			this.props.jars && await Promise.all(this.props.jars.map(jar => jar.configure && jar.configure(data)));
 			app.configure && await app.configure(data);
 
+			// cookieProvider.set('TOKEN', '');
+
 			if (!globalStateAvailable) {
 				await serverSideInit(store, window.location.pathname, window.location.search, cookies);
 			}
