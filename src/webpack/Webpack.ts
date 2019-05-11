@@ -10,7 +10,7 @@ export type WebpackConfig = {
 	devTool?: string
 	sharedStyle?: string
 	stylesPath?: Array<string>
-	typescriptLoaders?: Array<string>
+	typescriptLoaders?: Array<any>
 	publicPath?: string
 	publicUri?: string
 	externals?: {[key:string]:string}

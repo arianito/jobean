@@ -10,7 +10,7 @@ export type LucidConfig = {
 	method: HttpMethod
 	responseType: ResponseType
 	withCredentials: boolean
-	logger: (...messages: any) => any
+	logger: any
 }
 
 
@@ -71,6 +71,10 @@ export class Lucid {
 		return () => {
 			delete Lucid.mockedMiddleware[name];
 		}
+	};
+
+	static mock = <T>(mock:MockedHttpRoute<T>) => {
+		return mock;
 	};
 
 	static removeMiddleware = (name: string) => {

@@ -16,7 +16,14 @@ export enum ResponseType {
 	stream = 'stream',
 }
 
-export type HttpRequest<T=any, C=any> = {
+export enum ProgressType {
+	none = 0,
+	download = 1,
+	upload = 2,
+	any = 3,
+}
+
+export type HttpRequest<T = any, C = any> = {
 	baseHref?: string
 	url: string
 	method?: HttpMethod
@@ -26,7 +33,7 @@ export type HttpRequest<T=any, C=any> = {
 	withCredentials?: boolean
 	payload?: T
 	headers?: HttpHeaders,
-	progress?: (total: number, loaded:number)=>any,
+	progress?: (status: ProgressType, total: number, loaded: number) => any,
 }
 
 
